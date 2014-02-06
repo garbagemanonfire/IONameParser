@@ -1,16 +1,16 @@
 # put your solution to code challenge 02 here
 
 # Read the command line argument and set up for either hunting prefixes or suffixes, like this:
-case ARGV[0]
-  when '-p'
-    # set up some regular expression for prefixes
-  when '-s'
-    # set up some regular expression for suffixes
-  else
-    puts "unknown option"
-    puts "usage: analyze.rb -p | -s < input_file > output_file"
-    exit
-end
+# case ARGV[0]
+#   when '-p'
+#     # set up some regular expression for prefixes
+#   when '-s'
+#     # set up some regular expression for suffixes
+#   else
+#     puts "unknown option"
+#     puts "usage: analyze.rb -p | -s < input_file > output_file"
+#     exit
+# end
 
 # throw away the command line option in ARGV so we can get to STDIN
 
@@ -21,3 +21,13 @@ end
 # after you've read all the lines, sort the hash so the most frequent words are first
 
 # write the hash to STDIN
+
+histogram = Hash.new(0)
+
+while line = gets
+  prefix = (/^\S*/).match(line).to_s
+  histogram[prefix.to_sym] += 1
+end
+
+histogram = Hash[histogram.sort_by { |prefix, count| count }.reverse]
+histogram.each { |prefix, count| puts "#{prefix} #{count}" }
