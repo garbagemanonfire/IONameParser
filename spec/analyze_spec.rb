@@ -7,13 +7,13 @@ require 'spec_helper'
 
 def create_test_file (filename)
   File.open(filename, "w") do |f|
-    5.times  {f.puts "Mr. Jones"}
-    6.times  {f.puts "Miss Smith"}
-    4.times  {f.puts "Mrs. Wesson"}
-    10.times {f.puts "Dr. Roberts"}
-    1.times  {f.puts "Jane Wintermute"}
-    2.times  {f.puts "Frank Franklin"}
-    3.times  {f.puts "Darleen Washington"}
+    5.times  {f.puts "Mr. Jones 444-3335-3333"}
+    6.times  {f.puts "Miss Smith 444-3335-3333"}
+    4.times  {f.puts "Mrs. Wesson 444-3335-3333"}
+    10.times {f.puts "Dr. Roberts 444-3335-3333"}
+    1.times  {f.puts "Jane Wintermute 444-3335-3333"}
+    2.times  {f.puts "Frank Franklin 444-3335-3333"}
+    3.times  {f.puts "Darleen Washington 444-3335-3333"}
  end
 end
 
@@ -55,17 +55,17 @@ describe "analyze" do
 
   # clean up after ourselves
 
-  after(:all) do
-    File.delete 'spec/testfile.txt'
-    File.delete 'spec/expected_prefixes.txt'
-    File.delete 'spec/expected_suffixes.txt'
-    File.delete 'spec/histogram.txt'
-  end
+  # after(:all) do
+  #   File.delete 'spec/testfile.txt'
+  #   File.delete 'spec/expected_prefixes.txt'
+  #   File.delete 'spec/expected_suffixes.txt'
+  #   File.delete 'spec/histogram.txt'
+  # end
 
   # specify what the options and STDIN and STDOUT are supposed to do
 
   it "reads a file and prints a hash of prefixes when given the -p option" do
-    binding.pry
+
     `ruby lib/analyze.rb -p <spec/testfile.txt >spec/histogram.txt`
     IO.read('spec/histogram.txt').should == IO.read('spec/expected_prefixes.txt')
   end
