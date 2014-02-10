@@ -7,13 +7,13 @@ require 'spec_helper'
 
 def create_test_file (filename)
   File.open(filename, "w") do |f|
-    5.times  {f.puts "Mr. Jones 444-3335-3333"}
-    6.times  {f.puts "Miss Smith 444-3335-3333"}
-    4.times  {f.puts "Mrs. Wesson 444-3335-3333"}
-    10.times {f.puts "Dr. Roberts 444-3335-3333"}
-    1.times  {f.puts "Jane Wintermute 444-3335-3333"}
-    2.times  {f.puts "Frank Franklin 444-3335-3333"}
-    3.times  {f.puts "Darleen Washington 444-3335-3333"}
+    5.times  {f.puts "Mr. Jones 776.953.9374"}
+    6.times  {f.puts "Miss Smith 793.987.1472"}
+    4.times  {f.puts "Mrs. Wesson 402.925.6180 x696"}
+    10.times {f.puts "Dr. Roberts (694)866-0185"}
+    1.times  {f.puts "Jane Wintermute 1-376-277-8241 x3399"}
+    2.times  {f.puts "Frank Franklin 1-837-756-9383 x4056"}
+    3.times  {f.puts "Darleen Washington (422)483-3471 x7736"}
  end
 end
 
