@@ -1,5 +1,35 @@
 #!/usr/bin/env ruby
+
 # this first line is how the operating system knows to use ruby to execute this file
 # use chmod oug+x txt2csv to make sure the file is executable
 
-puts "This is where txt2csv will be invoked from the command line."
+require 'thor'
+
+require_relative '../lib/analyze.rb'
+require_relative '../lib/parse.rb'
+
+class Txt2csv < Thor
+  class_option :i, :banner => " INPUT"
+  class_option :o, :banner => " OUTPUT"
+
+  desc "analyze {-p | -s} -i File -o File", "analyze a file"
+  option  :p, :aliases => ['--name-prefix'],
+               :type => 'boolean',
+               :banner => " Prefix file/selector"
+
+  option :s, :aliases => ['--name-suffix'],
+               :type => 'boolean',
+               :banner => " Suffix file/selector"
+  def analyze
+    input = options[:i]
+    output = options[:o]
+    # needs error checking for both fix options
+    pattern = '-p' if options[:p]
+    pattern = '-s' if options[:s]
+    filyze = Analyze.new(input, output, pattern)
+    filyze.analyze
+  end
+
+end
+
+Txt2csv.start
