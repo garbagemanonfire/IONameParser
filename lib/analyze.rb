@@ -25,10 +25,10 @@ ARGV.shift
 histogram = Hash.new(0)
 
 while line = gets
-  hack_line = (/(\d+|\W)(.)(\d+)(\d)/).match(line)
-  parts_of_name = hack_line.pre_match
-  parts_of_name.strip!
-  linestore = (sorter).match(parts_of_name).to_s
+  # hack_line = (/(\d+|\W)(.)(\d+)(\d)/).match(line)
+  # parts_of_name = hack_line.pre_match
+  # parts_of_name.strip!
+  linestore = (sorter).match(line).to_s
   histogram[linestore.to_sym] += 1
 end
 

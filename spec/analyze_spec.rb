@@ -7,13 +7,13 @@ require 'spec_helper'
 
 def create_test_file (filename)
   File.open(filename, "w") do |f|
-    5.times  {f.puts "Mr. Jones 776.953.9374"}
-    6.times  {f.puts "Miss Smith 793.987.1472"}
-    4.times  {f.puts "Mrs. Wesson 402.925.6180 x696"}
-    10.times {f.puts "Dr. Roberts (694)866-0185"}
-    1.times  {f.puts "Jane Wintermute 1-376-277-8241 x3399"}
-    2.times  {f.puts "Frank Franklin 1-837-756-9383 x4056"}
-    3.times  {f.puts "Darleen Washington (422)483-3471 x7736"}
+    5.times  {f.puts "Mr. Jones"}
+    6.times  {f.puts "Miss Smith"}
+    4.times  {f.puts "Mrs. Wesson"}
+    10.times {f.puts "Dr. Roberts"}
+    1.times  {f.puts "Jane Wintermute"}
+    2.times  {f.puts "Frank Franklin"}
+    3.times  {f.puts "Darleen Washington"}
  end
 end
 
@@ -55,12 +55,12 @@ describe "analyze" do
 
   # clean up after ourselves
 
-  # after(:all) do
-  #   File.delete 'spec/testfile.txt'
-  #   File.delete 'spec/expected_prefixes.txt'
-  #   File.delete 'spec/expected_suffixes.txt'
-  #   File.delete 'spec/histogram.txt'
-  # end
+  after(:all) do
+    File.delete 'spec/testfile.txt'
+    File.delete 'spec/expected_prefixes.txt'
+    File.delete 'spec/expected_suffixes.txt'
+    File.delete 'spec/histogram.txt'
+  end
 
   # specify what the options and STDIN and STDOUT are supposed to do
 
