@@ -9,25 +9,32 @@ require_relative '../lib/analyze.rb'
 require_relative '../lib/parse.rb'
 
 class Txt2csv < Thor
-  class_option :i, :banner => " INPUT"
-  class_option :o, :banner => " OUTPUT"
+  class_option :i, :banner => "INPUT"
+  class_option :o, :banner => "OUTPUT"
 
   desc "analyze {-p | -s} -i File -o File", "analyze a file"
-  option  :p, :aliases => ['--name-prefix'],
+  option :name_prefix, :aliases => :p,
                :type => 'boolean',
-               :banner => " Prefix file/selector"
+               :banner => " Prefix"
 
-  option :s, :aliases => ['--name-suffix'],
+  option :name_suffix, :aliases => :s,
                :type => 'boolean',
-               :banner => " Suffix file/selector"
+               :banner => " Suffix"
   def analyze
     input = options[:i]
     output = options[:o]
-    # needs error checking for both fix options
     pattern = '-p' if options[:p]
     pattern = '-s' if options[:s]
     filyze = Analyze.new(input, output, pattern)
     filyze.analyze
+  end
+
+  desc "txt2csv convert -p prefixfile.txt -s suffixfile.txt -i textfile.txt -o namefile.csv"
+  def convert
+    input = options[:i]
+    output = options[:o]
+    convert = Parse.new(input, output)
+    convert.parse
   end
 
 end
