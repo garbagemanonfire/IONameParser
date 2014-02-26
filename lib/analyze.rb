@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require 'csv'
 
 class Analyze
 
@@ -9,31 +8,34 @@ class Analyze
     #open the output file so we can right to it
     @output = File.new(output, 'w')
     #set the pattern according to what was the selected option
-    @pattern = pattern
+    @pattern_select = pattern
   end
 
-  def pattern
+  def pattern_grab
     # Read the command line argument and set up for either hunting prefixes or suffixes, like this:
-    case @pattern
-      when '-p'
+    case @pattern_select
+    when '-p'
         # set up some regular expression for prefixes
-        return sorter = /^[\w\.]+/
-      when '-s'
+        pattern = /^\S+/
+    when '-s'
         # set up some regular expression for suffixes
-        return sorter = /[\w]+$/
+        pattern = /\S*$/
     end
+    pattern
   end
 
-  def analyze
+  def histo_maker
     histogram = Hash.new(0)
     #set sorter from pattern method
-    sorter = pattern
+    sorter = pattern_grab
+
 
     @input.each_line do |line|
       #grab a record from the input and split it on tab
-      line_array = CSV.parse_line(line, col_sep: '\t')
+      line_array = line.split("\t")
+      name_part = line_array[0].to_s
       #use the sorter to match in the line
-      linestore = (sorter).match(line).to_s
+      linestore = sorter.match(name_part).to_s
        # count the word using a hash
       histogram[linestore.to_sym] += 1
     end

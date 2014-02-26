@@ -7,34 +7,41 @@ require 'thor'
 
 require_relative '../lib/analyze.rb'
 require_relative '../lib/parse.rb'
+require_relative '../lib/convert.rb'
 
 class Txt2csv < Thor
   class_option :i, :banner => "INPUT"
   class_option :o, :banner => "OUTPUT"
 
-  desc "analyze {-p | -s} -i File -o File", "analyze a file"
+  desc "find -ixes", "txt2csv convert -p prefixfile.txt -s suffixfile.txt -i textfile.txt -o namefile.csv"
   option :name_prefix, :aliases => :p,
-               :type => 'boolean',
+               :type => :boolean,
                :banner => " Prefix"
 
   option :name_suffix, :aliases => :s,
-               :type => 'boolean',
+               :type => :boolean,
                :banner => " Suffix"
   def analyze
     input = options[:i]
     output = options[:o]
-    pattern = '-p' if options[:p]
-    pattern = '-s' if options[:s]
-    filyze = Analyze.new(input, output, pattern)
-    filyze.analyze
+    pattern_select = '-p' if options[:name_prefix]
+    pattern_select = '-s' if options[:name_suffix]
+    filyze = Analyze.new(input, output, pattern_select)
+    filyze.histo_maker
   end
 
-  desc "txt2csv convert -p prefixfile.txt -s suffixfile.txt -i textfile.txt -o namefile.csv"
+  desc "convert stuff", "txt2csv convert -p prefixfile.txt -s suffixfile.txt -i textfile.txt -o namefile.csv"
+  option :prefix, :aliases => :p,
+               :banner => " Prefix"
+
+  option :suffix, :aliases => :s,
+               :banner => " Suffix"
   def convert
     input = options[:i]
     output = options[:o]
-    convert = Parse.new(input, output)
-    convert.parse
+    prefix = options[:prefix]
+    suffix = options[:suffix]
+    convert = Parse.new(input, output, prefix, suffix)
   end
 
 end
