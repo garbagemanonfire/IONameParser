@@ -29,7 +29,6 @@ class Analyze
     #set sorter from pattern method
     sorter = pattern_grab
 
-
     @input.each_line do |line|
       #grab a record from the input and split it on tab
       line_array = line.split("\t")

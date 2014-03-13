@@ -31,17 +31,14 @@ class Txt2csv < Thor
   end
 
   desc "convert stuff", "txt2csv convert -p prefixfile.txt -s suffixfile.txt -i textfile.txt -o namefile.csv"
-  option :prefix, :aliases => :p,
-               :banner => " Prefix"
-
-  option :suffix, :aliases => :s,
-               :banner => " Suffix"
+  option :prefix, :aliases => :p, :banner => " Prefix"
+  option :suffix, :aliases => :s, :banner => " Suffix"
   def convert
     input = options[:i]
     output = options[:o]
     prefix = options[:prefix]
     suffix = options[:suffix]
-    convert = Parse.new(input, output, prefix, suffix)
+    convert = Convert.new(input, output, prefix, suffix)
   end
 
 end
